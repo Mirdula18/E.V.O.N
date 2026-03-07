@@ -1,4 +1,4 @@
-#  J.A.R.V.I.S. — Offline AI Assistant
+#  E.V.O.N — Offline AI Assistant
 
 A fully local, offline desktop AI assistant inspired by Iron Man's J.A.R.V.I.S. Powered by open-source LLMs, Whisper STT, and Piper TTS — all running on your own hardware.
 

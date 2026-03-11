@@ -7,11 +7,12 @@ from __future__ import annotations
 
 import io
 import logging
+import os
+import tempfile
 from pathlib import Path
 from typing import Optional
 
 import numpy as np
-import soundfile as sf
 from faster_whisper import WhisperModel
 
 from app.config import settings
@@ -37,24 +38,85 @@ class STTService:
         """Load the Whisper model into GPU/CPU memory."""
         if self._model is not None:
             return
+        device = settings.WHISPER_DEVICE
+        compute_type = settings.WHISPER_COMPUTE_TYPE
         logger.info(
             "Loading Whisper model=%s device=%s compute=%s",
             settings.WHISPER_MODEL_SIZE,
-            settings.WHISPER_DEVICE,
-            settings.WHISPER_COMPUTE_TYPE,
+            device,
+            compute_type,
         )
-        self._model = WhisperModel(
-            settings.WHISPER_MODEL_SIZE,
-            device=settings.WHISPER_DEVICE,
-            compute_type=settings.WHISPER_COMPUTE_TYPE,
-        )
+        try:
+            self._model = WhisperModel(
+                settings.WHISPER_MODEL_SIZE,
+                device=device,
+                compute_type=compute_type,
+            )
+        except Exception as exc:
+            if device != "cpu":
+                logger.warning(
+                    "Failed to load Whisper on %s (%s). Falling back to CPU/float32.",
+                    device, exc,
+                )
+                self._model = WhisperModel(
+                    settings.WHISPER_MODEL_SIZE,
+                    device="cpu",
+                    compute_type="float32",
+                )
+            else:
+                raise
         logger.info("Whisper model loaded successfully.")
 
     @property
     def model(self) -> WhisperModel:
         if self._model is None:
-            raise RuntimeError("STT model not loaded. Call load_model() first.")
+            # Lazy load: try to load the model on first use
+            import asyncio
+            try:
+                loop = asyncio.get_event_loop()
+                if loop.is_running():
+                    # We're inside an async context — load synchronously
+                    self._load_model_sync()
+                else:
+                    loop.run_until_complete(self.load_model())
+            except RuntimeError:
+                self._load_model_sync()
+        if self._model is None:
+            raise RuntimeError("STT model failed to load. Check logs for details.")
         return self._model
+
+    def _load_model_sync(self) -> None:
+        """Synchronous model loading for use when called from a sync property."""
+        if self._model is not None:
+            return
+        device = settings.WHISPER_DEVICE
+        compute_type = settings.WHISPER_COMPUTE_TYPE
+        logger.info(
+            "Lazy-loading Whisper model=%s device=%s compute=%s",
+            settings.WHISPER_MODEL_SIZE,
+            device,
+            compute_type,
+        )
+        try:
+            self._model = WhisperModel(
+                settings.WHISPER_MODEL_SIZE,
+                device=device,
+                compute_type=compute_type,
+            )
+        except Exception as exc:
+            if device != "cpu":
+                logger.warning(
+                    "Failed to load Whisper on %s (%s). Falling back to CPU/float32.",
+                    device, exc,
+                )
+                self._model = WhisperModel(
+                    settings.WHISPER_MODEL_SIZE,
+                    device="cpu",
+                    compute_type="float32",
+                )
+            else:
+                raise
+        logger.info("Whisper model loaded successfully.")
 
     # ──────────────────────────────────────────────────────
     #  Transcription
@@ -65,27 +127,60 @@ class STTService:
 
         Returns: { "text": str, "language": str, "segments": list }
         """
-        # Decode audio to float32 numpy array
-        audio_array, sample_rate = sf.read(io.BytesIO(audio_bytes), dtype="float32")
+        # Write to a temp file so faster-whisper can decode any format via PyAV
+        # (supports WebM/Opus, WAV, MP3, OGG, FLAC, etc.)
+        suffix = ".webm"
+        if audio_bytes[:4] == b"RIFF":
+            suffix = ".wav"
+        elif audio_bytes[:4] == b"fLaC":
+            suffix = ".flac"
+        elif audio_bytes[:3] == b"ID3" or (len(audio_bytes) > 1 and audio_bytes[:2] == b"\xff\xfb"):
+            suffix = ".mp3"
+        elif audio_bytes[:4] == b"OggS":
+            suffix = ".ogg"
 
-        # Convert stereo → mono if needed
-        if audio_array.ndim > 1:
-            audio_array = np.mean(audio_array, axis=1)
+        tmp_path: str | None = None
+        try:
+            with tempfile.NamedTemporaryFile(suffix=suffix, delete=False) as tmp:
+                tmp.write(audio_bytes)
+                tmp_path = tmp.name
 
-        # Resample to 16 kHz if necessary (Whisper expects 16 kHz)
-        if sample_rate != 16_000:
-            try:
-                import resampy
-                audio_array = resampy.resample(audio_array, sample_rate, 16_000)
-            except ImportError:
-                logger.warning(
-                    "resampy not installed — skipping resample from %d Hz. "
-                    "Install resampy for best accuracy.",
-                    sample_rate,
+            segments_gen, info = self.model.transcribe(
+                tmp_path,
+                language=language if language != "auto" else None,
+                beam_size=5,
+                vad_filter=True,
+                vad_parameters=dict(min_silence_duration_ms=500),
+            )
+
+            segments = []
+            full_text_parts: list[str] = []
+            for seg in segments_gen:
+                segments.append(
+                    {"start": seg.start, "end": seg.end, "text": seg.text.strip()}
                 )
+                full_text_parts.append(seg.text.strip())
+        finally:
+            if tmp_path and os.path.exists(tmp_path):
+                os.unlink(tmp_path)
+
+        full_text = " ".join(full_text_parts)
+        logger.info("Transcribed %d segments, lang=%s", len(segments), info.language)
+
+        return {
+            "text": full_text,
+            "language": info.language,
+            "segments": segments,
+        }
+
+    async def transcribe_file(self, file_path: str | Path, language: str = "en") -> dict:
+        """Transcribe an audio file from disk."""
+        path = Path(file_path)
+        if not path.exists():
+            raise FileNotFoundError(f"Audio file not found: {path}")
 
         segments_gen, info = self.model.transcribe(
-            audio_array,
+            str(path),
             language=language if language != "auto" else None,
             beam_size=5,
             vad_filter=True,
@@ -108,13 +203,6 @@ class STTService:
             "language": info.language,
             "segments": segments,
         }
-
-    async def transcribe_file(self, file_path: str | Path, language: str = "en") -> dict:
-        """Transcribe an audio file from disk."""
-        path = Path(file_path)
-        if not path.exists():
-            raise FileNotFoundError(f"Audio file not found: {path}")
-        return await self.transcribe_bytes(path.read_bytes(), language=language)
 
 
 # Module-level singleton

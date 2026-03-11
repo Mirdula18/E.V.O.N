@@ -1,35 +1,35 @@
-# ═══════════════════════════════════════════════════════════
-#  J.A.R.V.I.S. Backend — Python Dependencies
-# ═══════════════════════════════════════════════════════════
+# ===========================================================
+#  J.A.R.V.I.S. Backend - Python Dependencies
+# ===========================================================
 
-# ── Core Framework ────────────────────────────────────────
+# -- Core Framework ----------------------------------------
 fastapi==0.115.*
 uvicorn[standard]==0.34.*
 python-multipart==0.0.18
 httpx==0.28.*
 
-# ── Database ──────────────────────────────────────────────
+# -- Database ----------------------------------------------
 sqlalchemy[asyncio]==2.0.*
 aiosqlite==0.20.*
 
-# ── Configuration ─────────────────────────────────────────
+# -- Configuration -----------------------------------------
 pydantic==2.10.*
 pydantic-settings==2.7.*
 
-# ── Speech-to-Text (Whisper) ─────────────────────────────
+# -- Speech-to-Text (Whisper) ------------------------------
 faster-whisper==1.1.*
 soundfile==0.13.*
 numpy>=1.26,<2.1
 resampy==0.4.*
 
-# ── LLM (Ollama client is HTTP-based, no extra lib needed)
+# -- LLM (Ollama client is HTTP-based, no extra lib needed)
 
-# ── Text-to-Speech ────────────────────────────────────────
+# -- Text-to-Speech ----------------------------------------
 pyttsx3==2.98
 
-# ── System Monitoring ─────────────────────────────────────
+# -- System Monitoring -------------------------------------
 psutil==6.1.*
 
-# ── CUDA / GPU (install separately via pip + CUDA toolkit)
+# -- CUDA / GPU (install separately via pip + CUDA toolkit)
 # ctranslate2          (comes with faster-whisper)
 # torch                (only if needed for other models)

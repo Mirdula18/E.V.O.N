@@ -33,6 +33,14 @@ export function useVoice({
   // ── Start recording ───────────────────────────────────
   const startRecording = useCallback(async () => {
     try {
+      // mediaDevices requires a secure context (HTTPS or localhost)
+      if (!navigator.mediaDevices?.getUserMedia) {
+        onError?.(
+          "Microphone API unavailable. Please access this page over HTTPS or via localhost."
+        );
+        return;
+      }
+
       const stream = await navigator.mediaDevices.getUserMedia({
         audio: {
           echoCancellation: true,

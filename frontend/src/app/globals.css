@@ -3,20 +3,20 @@
 @tailwind utilities;
 
 /* ═══════════════════════════════════════════════════════════
-   J.A.R.V.I.S. — Global Styles
+   E.V.O.N. — Global Styles
    ═══════════════════════════════════════════════════════════ */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
-  --jarvis-accent: #a855f7;
-  --jarvis-accent-glow: #c084fc;
+  --evon-accent: #a855f7;
+  --evon-accent-glow: #c084fc;
 }
 
 /* ── Base ─────────────────────────────────────────────── */
 
 html, body {
-  @apply bg-jarvis-bg text-jarvis-text antialiased;
+  @apply bg-evon-bg text-evon-text antialiased;
   font-family: 'Inter', system-ui, sans-serif;
 }
 
@@ -31,17 +31,17 @@ html, body {
 }
 
 .scrollbar-thin::-webkit-scrollbar-thumb {
-  @apply bg-jarvis-border rounded-full;
+  @apply bg-evon-border rounded-full;
 }
 
 .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-  @apply bg-jarvis-accent/30;
+  @apply bg-evon-accent/30;
 }
 
 /* ── Selection ────────────────────────────────────────── */
 
 ::selection {
-  @apply bg-jarvis-accent/30 text-white;
+  @apply bg-evon-accent/30 text-white;
 }
 
 /* ── Code blocks ──────────────────────────────────────── */
@@ -53,17 +53,17 @@ pre code {
 
 code {
   font-family: 'JetBrains Mono', 'Fira Code', monospace;
-  @apply text-jarvis-accent-glow;
+  @apply text-evon-accent-glow;
 }
 
 pre {
-  @apply bg-jarvis-bg border border-jarvis-border rounded-xl p-4 overflow-x-auto;
+  @apply bg-evon-bg border border-evon-border rounded-xl p-4 overflow-x-auto;
 }
 
 /* ── Prose overrides ──────────────────────────────────── */
 
 .prose a {
-  @apply text-jarvis-accent hover:text-jarvis-accent-glow no-underline;
+  @apply text-evon-accent hover:text-evon-accent-glow no-underline;
 }
 
 .prose strong {
@@ -71,7 +71,7 @@ pre {
 }
 
 .prose blockquote {
-  @apply border-l-jarvis-accent/50 bg-jarvis-card/50 rounded-r-lg py-1 px-3;
+  @apply border-l-evon-accent/50 bg-evon-card/50 rounded-r-lg py-1 px-3;
 }
 
 .prose table {
@@ -79,11 +79,11 @@ pre {
 }
 
 .prose th {
-  @apply bg-jarvis-card border border-jarvis-border px-3 py-2 text-left text-sm font-semibold text-jarvis-text;
+  @apply bg-evon-card border border-evon-border px-3 py-2 text-left text-sm font-semibold text-evon-text;
 }
 
 .prose td {
-  @apply border border-jarvis-border px-3 py-2 text-sm text-jarvis-muted;
+  @apply border border-evon-border px-3 py-2 text-sm text-evon-muted;
 }
 
 /* ── Glow effects ─────────────────────────────────────── */

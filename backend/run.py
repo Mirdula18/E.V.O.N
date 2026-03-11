@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Run the J.A.R.V.I.S. backend server.
+Run the E.V.O.N. backend server.
 Usage:  python run.py
 """
 

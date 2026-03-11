@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════════
-//  J.A.R.V.I.S. — Main Page
+//  E.V.O.N. — Main Page
 // ═══════════════════════════════════════════════════════════
 
 "use client";
@@ -81,11 +81,11 @@ export default function Home() {
       {/* ── Main area ──────────────────────────────────── */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Top bar */}
-        <header className="flex items-center justify-between px-4 py-2 border-b border-jarvis-border bg-jarvis-surface/50 backdrop-blur-sm">
+        <header className="flex items-center justify-between px-4 py-2 border-b border-evon-border bg-evon-surface/50 backdrop-blur-sm">
           <div className="flex items-center gap-3">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="p-2 rounded-lg hover:bg-jarvis-card text-jarvis-muted transition-colors"
+              className="p-2 rounded-lg hover:bg-evon-card text-evon-muted transition-colors"
             >
               {sidebarOpen ? (
                 <X className="w-5 h-5" />
@@ -93,7 +93,7 @@ export default function Home() {
                 <Menu className="w-5 h-5" />
               )}
             </button>
-            <div className="text-sm font-medium text-jarvis-text">
+            <div className="text-sm font-medium text-evon-text">
               {activeConversationId
                 ? conversations.find((c) => c.id === activeConversationId)?.title || "Conversation"
                 : "New Conversation"}

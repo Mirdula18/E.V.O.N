@@ -1,6 +1,6 @@
-#  E.V.O.N — Offline AI Assistant
+#  E.V.O.N. — Enhanced Voice-Operated Nexus
 
-A fully local, offline desktop AI assistant inspired by Iron Man's J.A.R.V.I.S. Powered by open-source LLMs, Whisper STT, and Piper TTS — all running on your own hardware.
+A fully local, offline desktop AI assistant. Powered by open-source LLMs, Whisper STT, and Piper TTS — all running on your own hardware.
 
 ```
 User Voice → Whisper (STT) → Ollama LLM → Piper TTS → Audio Output
@@ -28,7 +28,7 @@ User Voice → Whisper (STT) → Ollama LLM → Piper TTS → Audio Output
 ##  Project Structure
 
 ```
-OFFLINE JARVIS/
+E.V.O.N./
 ├── backend/
 │   ├── app/
 │   │   ├── __init__.py

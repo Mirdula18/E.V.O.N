@@ -97,7 +97,7 @@ export default function ChatInterface({
   const isEmpty = messages.length === 0 && !streamingContent;
 
   return (
-    <div className="flex-1 flex flex-col h-full bg-jarvis-bg">
+    <div className="flex-1 flex flex-col h-full bg-evon-bg">
       {/* ── Messages Area ─────────────────────────────── */}
       <div className="flex-1 overflow-y-auto px-4 py-6 space-y-4 scrollbar-thin">
         {isEmpty ? (
@@ -115,12 +115,12 @@ export default function ChatInterface({
             {/* Streaming response */}
             {streamingContent && (
               <div className="flex gap-3 animate-fade-in">
-                <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-gradient-to-br from-jarvis-accent to-jarvis-accent-dim flex items-center justify-center mt-1">
+                <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-gradient-to-br from-evon-accent to-evon-accent-dim flex items-center justify-center mt-1">
                   <Bot className="w-4 h-4 text-white" />
                 </div>
-                <div className="max-w-[75%] rounded-2xl px-4 py-3 bg-jarvis-card border border-jarvis-border text-jarvis-text">
+                <div className="max-w-[75%] rounded-2xl px-4 py-3 bg-evon-card border border-evon-border text-evon-text">
                   <p className="whitespace-pre-wrap">{streamingContent}</p>
-                  <span className="inline-block w-2 h-4 bg-jarvis-accent animate-pulse ml-0.5" />
+                  <span className="inline-block w-2 h-4 bg-evon-accent animate-pulse ml-0.5" />
                 </div>
               </div>
             )}
@@ -128,14 +128,14 @@ export default function ChatInterface({
             {/* Loading indicator */}
             {isLoading && !streamingContent && (
               <div className="flex gap-3 animate-fade-in">
-                <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-gradient-to-br from-jarvis-accent to-jarvis-accent-dim flex items-center justify-center mt-1">
+                <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-gradient-to-br from-evon-accent to-evon-accent-dim flex items-center justify-center mt-1">
                   <Bot className="w-4 h-4 text-white" />
                 </div>
-                <div className="rounded-2xl px-4 py-3 bg-jarvis-card border border-jarvis-border">
+                <div className="rounded-2xl px-4 py-3 bg-evon-card border border-evon-border">
                   <div className="flex gap-1.5">
-                    <span className="w-2 h-2 bg-jarvis-accent rounded-full animate-bounce [animation-delay:0ms]" />
-                    <span className="w-2 h-2 bg-jarvis-accent rounded-full animate-bounce [animation-delay:150ms]" />
-                    <span className="w-2 h-2 bg-jarvis-accent rounded-full animate-bounce [animation-delay:300ms]" />
+                    <span className="w-2 h-2 bg-evon-accent rounded-full animate-bounce [animation-delay:0ms]" />
+                    <span className="w-2 h-2 bg-evon-accent rounded-full animate-bounce [animation-delay:150ms]" />
+                    <span className="w-2 h-2 bg-evon-accent rounded-full animate-bounce [animation-delay:300ms]" />
                   </div>
                 </div>
               </div>
@@ -157,7 +157,7 @@ export default function ChatInterface({
       )}
 
       {/* ── Input Area ────────────────────────────────── */}
-      <div className="border-t border-jarvis-border p-4">
+      <div className="border-t border-evon-border p-4">
         <div className="max-w-4xl mx-auto">
           {/* Mode Toggle */}
           <div className="flex items-center gap-2 mb-3">
@@ -166,8 +166,8 @@ export default function ChatInterface({
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium
                          transition-all duration-200 ${
                            inputMode === "text"
-                             ? "bg-jarvis-accent/20 text-jarvis-accent border border-jarvis-accent/30"
-                             : "text-jarvis-muted hover:text-jarvis-text hover:bg-jarvis-card"
+                             ? "bg-evon-accent/20 text-evon-accent border border-evon-accent/30"
+                             : "text-evon-muted hover:text-evon-text hover:bg-evon-card"
                          }`}
             >
               <Keyboard className="w-3.5 h-3.5" />
@@ -178,8 +178,8 @@ export default function ChatInterface({
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium
                          transition-all duration-200 ${
                            inputMode === "voice"
-                             ? "bg-jarvis-accent/20 text-jarvis-accent border border-jarvis-accent/30"
-                             : "text-jarvis-muted hover:text-jarvis-text hover:bg-jarvis-card"
+                             ? "bg-evon-accent/20 text-evon-accent border border-evon-accent/30"
+                             : "text-evon-muted hover:text-evon-text hover:bg-evon-card"
                          }`}
             >
               <Mic className="w-3.5 h-3.5" />
@@ -196,12 +196,12 @@ export default function ChatInterface({
                   value={input}
                   onChange={handleInputChange}
                   onKeyDown={handleKeyDown}
-                  placeholder="Message J.A.R.V.I.S. …"
+                  placeholder="Message E.V.O.N. …"
                   rows={1}
                   disabled={isLoading}
-                  className="w-full resize-none rounded-2xl bg-jarvis-card border border-jarvis-border
-                             px-4 py-3 pr-12 text-sm text-jarvis-text placeholder:text-jarvis-muted
-                             focus:outline-none focus:border-jarvis-accent/50 focus:shadow-[0_0_15px_rgba(168,85,247,0.1)]
+                  className="w-full resize-none rounded-2xl bg-evon-card border border-evon-border
+                             px-4 py-3 pr-12 text-sm text-evon-text placeholder:text-evon-muted
+                             focus:outline-none focus:border-evon-accent/50 focus:shadow-[0_0_15px_rgba(168,85,247,0.1)]
                              transition-all duration-200 disabled:opacity-50 max-h-40"
                 />
               </div>
@@ -209,7 +209,7 @@ export default function ChatInterface({
                 onClick={handleSend}
                 disabled={!input.trim() || isLoading}
                 className="flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center
-                           bg-jarvis-accent text-white hover:bg-jarvis-accent-dim
+                           bg-evon-accent text-white hover:bg-evon-accent-dim
                            disabled:opacity-30 disabled:cursor-not-allowed
                            transition-all duration-200 hover:shadow-[0_0_20px_rgba(168,85,247,0.3)]"
               >
@@ -232,7 +232,7 @@ export default function ChatInterface({
                 onClick={toggleRecording}
                 size="lg"
               />
-              <p className="text-sm text-jarvis-muted">
+              <p className="text-sm text-evon-muted">
                 {isRecording
                   ? "Listening… tap to stop"
                   : isProcessing
@@ -254,17 +254,17 @@ function EmptyState() {
       <div className="text-center space-y-6 max-w-md animate-fade-in">
         {/* Animated logo */}
         <div className="relative mx-auto w-24 h-24">
-          <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-jarvis-accent/30 to-jarvis-accent-dim/20 animate-pulse-glow" />
-          <div className="relative w-24 h-24 rounded-2xl bg-gradient-to-br from-jarvis-accent to-jarvis-accent-dim flex items-center justify-center">
+          <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-evon-accent/30 to-evon-accent-dim/20 animate-pulse-glow" />
+          <div className="relative w-24 h-24 rounded-2xl bg-gradient-to-br from-evon-accent to-evon-accent-dim flex items-center justify-center">
             <Sparkles className="w-10 h-10 text-white" />
           </div>
         </div>
 
         <div>
           <h2 className="text-2xl font-bold text-white mb-2">
-            Hello, I&apos;m J.A.R.V.I.S.
+            Hello, I&apos;m E.V.O.N.
           </h2>
-          <p className="text-jarvis-muted text-sm leading-relaxed">
+          <p className="text-evon-muted text-sm leading-relaxed">
             Your offline AI assistant. I can answer questions, explain code,
             open applications, and much more — all running locally on your
             machine.
@@ -280,7 +280,7 @@ function EmptyState() {
           ].map((item) => (
             <div
               key={item.text}
-              className="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-jarvis-card border border-jarvis-border text-sm text-jarvis-muted"
+              className="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-evon-card border border-evon-border text-sm text-evon-muted"
             >
               <span>{item.icon}</span>
               {item.text}

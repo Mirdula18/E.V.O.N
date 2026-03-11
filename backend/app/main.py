@@ -1,5 +1,5 @@
 """
-JARVIS — Offline AI Assistant
+E.V.O.N. — Enhanced Voice-Operated Nexus
 FastAPI application entry point.
 """
 
@@ -26,7 +26,7 @@ logging.basicConfig(
     format="%(asctime)s │ %(levelname)-8s │ %(name)s │ %(message)s",
     datefmt="%H:%M:%S",
 )
-logger = logging.getLogger("jarvis")
+logger = logging.getLogger("evon")
 
 
 # ── Lifespan ─────────────────────────────────────────────
@@ -34,7 +34,7 @@ logger = logging.getLogger("jarvis")
 async def lifespan(app: FastAPI):
     """Startup / Shutdown lifecycle."""
     logger.info("═" * 60)
-    logger.info("  J.A.R.V.I.S. — Starting up …")
+    logger.info("  E.V.O.N. — Starting up …")
     logger.info("═" * 60)
 
     # Create database tables
@@ -59,20 +59,20 @@ async def lifespan(app: FastAPI):
         logger.warning("Ollama not reachable at %s", settings.OLLAMA_BASE_URL)
 
     logger.info("═" * 60)
-    logger.info("  J.A.R.V.I.S. — Online and ready.")
+    logger.info("  E.V.O.N. — Online and ready.")
     logger.info("═" * 60)
 
     yield  # ← Application runs here
 
     # Shutdown
-    logger.info("J.A.R.V.I.S. shutting down …")
+    logger.info("E.V.O.N. shutting down …")
     await llm_service.shutdown()
 
 
 # ── App ──────────────────────────────────────────────────
 app = FastAPI(
-    title="J.A.R.V.I.S. — Offline AI Assistant",
-    description="Local AI assistant powered by Whisper + Ollama + Piper TTS",
+    title="E.V.O.N. — Enhanced Voice-Operated Nexus",
+    description="Offline AI assistant powered by Whisper + Ollama + Piper TTS",
     version="1.0.0",
     lifespan=lifespan,
 )
@@ -99,7 +99,7 @@ app.include_router(system.router)
 @app.get("/")
 async def root():
     return {
-        "name": "J.A.R.V.I.S.",
+        "name": "E.V.O.N.",
         "status": "online",
         "version": "1.0.0",
         "docs": "/docs",

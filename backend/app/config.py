@@ -45,7 +45,7 @@ class Settings(BaseSettings):
     TTS_SAMPLE_RATE: int = 22050
 
     # ── Database ──────────────────────────────────────────
-    DATABASE_URL: str = f"sqlite+aiosqlite:///{BASE_DIR / 'data' / 'jarvis.db'}"
+    DATABASE_URL: str = f"sqlite+aiosqlite:///{BASE_DIR / 'data' / 'evon.db'}"
 
     # ── Paths ─────────────────────────────────────────────
     UPLOAD_DIR: str = str(BASE_DIR / "data" / "uploads")
@@ -53,8 +53,8 @@ class Settings(BaseSettings):
 
     # ── System Prompt ─────────────────────────────────────
     SYSTEM_PROMPT: str = (
-        "You are J.A.R.V.I.S. (Just A Rather Very Intelligent System), an advanced AI "
-        "assistant inspired by Iron Man's AI. You are helpful, witty, precise, and "
+        "You are E.V.O.N. (Enhanced Voice-Operated Nexus), an advanced AI "
+        "assistant that runs entirely offline. You are helpful, witty, precise, and "
         "knowledgeable. You respond concisely. When explaining code, you are thorough "
         "but clear. You can help manage system tasks, answer questions, and engage in "
         "natural conversation. Address the user respectfully."

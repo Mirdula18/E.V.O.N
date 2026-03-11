@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════════
-//  J.A.R.V.I.S. Frontend — Type Definitions
+//  E.V.O.N. Frontend — Type Definitions
 // ═══════════════════════════════════════════════════════════
 
 export interface Message {

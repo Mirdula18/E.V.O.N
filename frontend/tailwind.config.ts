@@ -9,7 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        jarvis: {
+        evon: {
           bg: "#0a0a0f",
           surface: "#12121a",
           card: "#1a1a28",

@@ -1,4 +1,4 @@
-# 🤖 J.A.R.V.I.S. — Offline AI Assistant
+#  E.V.O.N — Offline AI Assistant
 
 A fully local, offline desktop AI assistant inspired by Iron Man's J.A.R.V.I.S. Powered by open-source LLMs, Whisper STT, and Piper TTS — all running on your own hardware.
 
@@ -8,24 +8,24 @@ User Voice → Whisper (STT) → Ollama LLM → Piper TTS → Audio Output
 
 ---
 
-## ✨ Features
+##  Features
 
 | Feature | Description |
 |---------|-------------|
-| 🎤 **Voice Input** | Record via microphone, transcribed locally by Whisper |
-| 🧠 **Local LLM** | Llama 3 / Mistral via Ollama — no cloud, no API keys |
-| 🔊 **Text-to-Speech** | Piper TTS (fast ONNX) with pyttsx3 fallback |
-| 💬 **Chat Mode** | Full ChatGPT-like text interface with streaming |
-| 🎙️ **Voice Mode** | End-to-end voice pipeline: speak → AI responds with audio |
-| 🖥️ **System Control** | Open Chrome, VSCode, File Explorer, etc. by voice/text |
-| 📊 **System Info** | CPU, RAM, GPU monitoring |
-| 🗃️ **Chat History** | SQLite-backed persistent conversations |
-| 🎨 **Futuristic UI** | Dark theme, purple accents, animated waveforms |
-| ⚡ **GPU Optimized** | Designed for RTX 3090 with float16 inference |
+|  **Voice Input** | Record via microphone, transcribed locally by Whisper |
+|  **Local LLM** | Llama 3 / Mistral via Ollama — no cloud, no API keys |
+|  **Text-to-Speech** | Piper TTS (fast ONNX) with pyttsx3 fallback |
+|  **Chat Mode** | Full ChatGPT-like text interface with streaming |
+|  **Voice Mode** | End-to-end voice pipeline: speak → AI responds with audio |
+|  **System Control** | Open Chrome, VSCode, File Explorer, etc. by voice/text |
+|  **System Info** | CPU, RAM, GPU monitoring |
+|  **Chat History** | SQLite-backed persistent conversations |
+|  **Futuristic UI** | Dark theme, purple accents, animated waveforms |
+|  **GPU Optimized** | Designed for RTX 3090 with float16 inference |
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 OFFLINE JARVIS/
@@ -94,7 +94,7 @@ OFFLINE JARVIS/
 
 ---
 
-## 🚀 Installation
+## Installation
 
 ### 1. Install Ollama & Pull a Model
 
